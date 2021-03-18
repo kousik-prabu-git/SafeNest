@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container mt-5 p-3">
+      <div class="row m-0">
+        <div class="col-8 border-right">
+          <br>
+          <h4>Available for volunteering!</h4>
+          <hr>
+          {% for activity in activities %}
+            <div class="card mb-3">
+              <div class="card-header">
+                <b>Activity - #{{forloop.counter}}</b>
+              </div>
+              <div class="card-body">
+                Reported by  - {{activity.reporter}} <br>
+                Animal - {{activity.pet}} <br>
+                Breed - {{activity.breed}} <br>
+                Condition - {{activity.condition}} <br>
+                location - {{activity.location}}
+
+              </div>
+              <div class="card-footer text-right">
+                {% if activity.status %}
+                  Closed
+                  {% else %}
+                  {% if not activity.volunteer %}
+                  <a href="/volunteer/self/{{activity.id}}" class="btn btn-warning">Volunteer</a>
+                  {% else %}
+                  <small>This activity is being monitored by <a href="">{{activity.volunteer}}</a> from {{activity.actionStamp|date:"h.i A, dS M, Y"}} </small>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="col-4">
+          <div>
+            Menu Items here
+          </div>
+          <hr>
+          <div>
+            <h4>New Activity</h4>
+            <form action="/volunteer/activity/new" method="POST" class="bg-warning p-3 p-md-4">
+              {% csrf_token %}
+              <input type="text" class="form-control mb-3" name="pet" placeholder="Pet Type">
+              <input type="text" class="form-control mb-3" name="breed" placeholder="Breed">
+              <textarea type="text" class="form-control mb-3" name="location" placeholder="Location"></textarea>
+              <textarea type="text" class="form-control mb-3" name="condition" placeholder="Condition"></textarea>
+              <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock content %}

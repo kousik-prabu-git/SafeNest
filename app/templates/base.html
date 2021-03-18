@@ -2,101 +2,235 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAFENEST</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        .auto-center {
-            min-height: 100%;
-            min-height: 100vh;
-          
-            display: flex;
-            align-items: center;
-          }
-          .hero-banner{
-              background-image: url(/static/hero-1.jpg);
-              background-size: cover;
-              background-position: center;
-          }
-          body::-webkit-scrollbar {
-          display: none;
-          }
-          @media only screen and (min-width: 600px){
-              .font-larger{
-                  font-size: 60px;
-              }
-              .font-large{
-                  font-size: 40px;
-              }
-              .font-medium{
-                  font-size: 20px;
-              }
-          }@media only screen and (max-width: 600px){
-            .font-larger{
-                font-size: 20px;
-            }
-            .font-large{
-                font-size: 18px;
-            }
-            .font-medium{
-                font-size: 14px;
-            }
-        }
-    </style>
-    </head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAFENEST</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+  <style>
+    .auto-center {
+      min-height: 100%;
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-banner {
+      background-image: url(/static/hero-1.jpg);
+      background-size: cover;
+      background-position: center;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media only screen and (min-width: 600px) {
+      .font-larger {
+        font-size: 60px;
+      }
+
+      .font-large {
+        font-size: 40px;
+      }
+
+      .font-medium {
+        font-size: 20px;
+      }
+    }
+
+    @media only screen and (max-width: 600px) {
+      .font-larger {
+        font-size: 20px;
+      }
+
+      .font-large {
+        font-size: 18px;
+      }
+
+      .font-medium {
+        font-size: 14px;
+      }
+    }
+    .modal-content{
+      background-color: #ffc107;
+    }
+    .hr{
+      background-color: #ffc107;
+    }
+    .form-control{
+      background-color: #ffc107;
+      border: none;
+      border-bottom: 2px solid #343a40;
+    }
+    .form-control:focus{
+      background-color: #ffc107;
+      border: none;
+      border-bottom: 2px solid #343a40;
+      outline: none;
+    }.form-control::placeholder{
+      color: #343a40;
+    }
+    .form-control:focus {
+      outline: none;
+    }  
+    
+    .rx-toast {
+      width: 100%;
+      max-width: 400px;
+      background-color: #a1920867;
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      margin: 10px;
+      z-index: 9;
+      border-radius: 5px;
+      -webkit-animation: slide 5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      animation: slide 5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      color: #fff;
+  }
+
+  @-webkit-keyframes slide {
+      0% {
+          -webkit-transform: translateX(-1000px);
+          transform: translateX(-1000px);
+          opacity: 0;
+      }
+
+      20% {
+          -webkit-transform: translateX(0);
+          transform: translateX(0);
+          opacity: 1;
+      }
+
+      80% {
+          -webkit-transform: translateX(0);
+          transform: translateX(0);
+          opacity: 1;
+      }
+
+      100% {
+          -webkit-transform: translateX(-1000px);
+          transform: translateX(-1000px);
+          opacity: 0;
+      }
+
+  }
+
+  @keyframes slide {
+      0% {
+          -webkit-transform: translateX(-1000px);
+          transform: translateX(-1000px);
+          opacity: 0;
+      }
+
+      20% {
+          -webkit-transform: translateX(0);
+          transform: translateX(0);
+          opacity: 1;
+      }
+
+      80% {
+          -webkit-transform: translateX(0);
+          transform: translateX(0);
+          opacity: 1;
+      }
+
+      100% {
+          -webkit-transform: translateX(-1000px);
+          transform: translateX(-1000px);
+          opacity: 0;
+      }
+
+  }
+  </style>
+</head>
 
 <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-warning fixed-top">
-          <div class="container">
-            <a class="navbar-brand" href="#"><img src="/static/logo.png" height="25px" class="mr-2"> SAFENEST</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>          
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item mx-1 active">
-                  <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item mx-1 active">
-                  <a class="nav-link" href="#">Volunteer</a>
-                </li>
-                <li class="nav-item mx-1 active dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Report
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Sick!</a>
-                    <a class="dropdown-item" href="#">Dead :(</a>
-                  </div>
-                </li>
-                <li class="nav-item mx-1 active">
-                  <a class="nav-link btn btn-dark text-light px-3" href="#">Adopt ;)</a>
-                </li>
-              </ul>
+  {% for message in messages %}
+  <div class="rx-toast text-center text-dark">
+      {{message}}
+  </div>
+  {% endfor %}
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content p-md-5 p-3">
+          <h2 class="modal-title mx-auto" id="exampleModalLongTitle">LOGIN</h2>
+          <br>
+          <form action="/login" method="POST">
+            {% csrf_token %}
+            <input type="text" class="form-control mb-3" name="username" placeholder="Username">
+            <input type="password" class="form-control mb-3" name="password" placeholder="Password">
+            <button class="btn btn-dark d-block ml-auto mr-0">LOGIN</button>
+          </form>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-warning fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#"><img src="/static/logo.png" height="25px" class="mr-2"> SAFENEST</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-1 active">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item mx-1 active">
+            <a class="nav-link" href="/volunteer">Volunteer</a>
+          </li>
+          <li class="nav-item mx-1 active dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Report
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Sick!</a>
+              <a class="dropdown-item" href="#">Dead :(</a>
             </div>
-        </div>
-      </nav>
+          </li>
+          <li class="nav-item mx-1 active">
+            <a class="nav-link btn btn-dark text-light px-3" href="#">Adopt ;)</a>
+          </li>
+          <li class="nav-item mx-1 active">
+            <a class="nav-link" href="/logout"><i class="bi bi-box-arrow-in-left"></i></a>
+          </li>
+          {% else %}
+          <li class="nav-item mx-1 active">
+            <a class="nav-link" href="javascript: void(0);" data-toggle="modal" data-target="#exampleModalCenter"><i class="bi bi-box-arrow-in-right"></i></a>
+          </li>            
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-      {% block content %}
-        
-      {% endblock content %}
+  {% block content %}
+
+  {% endblock content %}
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    {% block scripts %}
-      
-    {% endblock scripts %}
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  {% block scripts %}
+
+  {% endblock scripts %}
 </body>
 
 </html>

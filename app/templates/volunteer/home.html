@@ -11,14 +11,14 @@
               <div class="card-header">
                 <b>Activity - #{{forloop.counter}}</b>
               </div>
-              <div class="card-body">
+              <small class="card-body">
                 Reported by  - {{activity.reporter}} <br>
                 Animal - {{activity.pet}} <br>
                 Breed - {{activity.breed}} <br>
                 Condition - {{activity.condition}} <br>
-                location - {{activity.location}}
-
-              </div>
+                location - {{activity.location}} <br>
+                Reported at - {{activity.timeStamp}}
+              </small>
               <div class="card-footer text-right">
                 {% if activity.status %}
                   Closed
@@ -26,7 +26,12 @@
                   {% if not activity.volunteer %}
                   <a href="/volunteer/self/{{activity.id}}" class="btn btn-warning">Volunteer</a>
                   {% else %}
-                  <small>This activity is being monitored by <a href="">{{activity.volunteer}}</a> from {{activity.actionStamp|date:"h.i A, dS M, Y"}} </small>
+                  <small>This activity is being monitored by 
+                    {% if activity.volunteer == 'Anonymous User' %}                    
+                    Anonymous User
+                    {% else %}
+                    <a href="">{{activity.volunteer}}</a>            
+                    {% endif %} from {{activity.actionStamp|date:"h.i A, dS M, Y"}} </small>
                   {% endif %}
                 {% endif %}
               </div>
@@ -34,12 +39,10 @@
           {% endfor %}
         </div>
         <div class="col-4">
-          <div>
-            Menu Items here
-          </div>
-          <hr>
+          <br>
           <div>
             <h4>New Activity</h4>
+            <hr>
             <form action="/volunteer/activity/new" method="POST" class="bg-warning p-3 p-md-4">
               {% csrf_token %}
               <input type="text" class="form-control mb-3" name="pet" placeholder="Pet Type">

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5 p-3">
+    <h5 class="pt-3">Available for Adoption</h5>
+    <hr class="m-0">
+    <div class="row m-0 my-2">
+        {% for pet in pets %}
+        <div class="col col-md-4 p-1 d-flex">
+            <div class="card p-3">
+                <img src="{{pet.image}}" width="100%">
+                <h6 class="mt-3 mb-1">{{pet.name}}
+                    {% if pet.sex == 'Male' %}♂
+                    {% else %}♀
+                    {% endif %}
+                </h6>
+                <hr class="mt-0 mb-1">
+                <small class="my-1"><i class="bi bi-flower1"></i><b> {{pet.breed}} </b></small>
+                <small>{{pet.description}}</small>
+                <hr>
+                <div class="row">
+                    <div class="col"><small><i class="bi bi-calendar3"></i><b> {{pet.age}} Months </b></small></div>
+                    <div class="col"><small><i class="bi bi-palette"></i><b> {{pet.color}} </b></small></div>
+                </div>
+                <div class="row">
+                    <div class="col"><small><i class="bi bi-arrow-bar-up"></i><b> {{pet.height}} cm </b></small><br>
+                    </div>
+                    <div class="col"><small><i class="bi bi-speedometer2"></i><b> {{pet.weight}} kg </b></small><br>
+                    </div>
+                </div>
+                <br>
+                <div class="text-right">
+                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                        data-target="#adoptCardModal-{{forloop.counter}}">Adopt</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="adoptCardModal-{{forloop.counter}}" tabindex="-1" role="dialog"
+            aria-labelledby="adoptCardModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content bg-light">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="adoptCardModalTitle-{{forloop.counter}}">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{pet.image}}" width="100%">
+                        <p class="mt-3">Do you find <b>{{pet.name}}</b>, a {{pet.sex}} {{pet.breed}} is your right
+                            companion?</p>
+                        <input type="checkbox" id="tac-{{forloop.counter}}"> I Agree
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a type="button" id="adoptBtn-{{forloop.counter}}" class="btn btn-warning">Yes, Adopt!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $("#tac-{{forloop.counter}}").change(function () {if (this.checked) {$("#adoptBtn-{{forloop.counter}}").attr('href', 'adopt/{{pet.id}}')}else {$("#adoptBtn-{{forloop.counter}}").attr('href', '#')}});
+        </script>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

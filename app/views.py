@@ -9,6 +9,14 @@ class HomeView(View):
     def get(self, request):
         return render(request, 'home.html')
 
+class ProfileView(LoginRequiredMixin, View):
+    def get(self, request):
+        context = {
+            "profile" : Profile.objects.get(user__username=request.user.username),
+            "timeLine" : TimeLine.objects.filter(user=request.user.username).order_by('-timeStamp')
+        }
+        return render(request, 'profile.html', context)
+
 class LoginView(View):
     def post(self, request):
         username = request.POST.get('username')
@@ -17,7 +25,7 @@ class LoginView(View):
         if user:
             login(request, user)
             messages.success(request, 'You have logged in successfully')
-            return redirect('home')
+            return redirect('profile')
         else:
             messages.success(request, 'Invalid login details')
         return redirect('home')
@@ -28,28 +36,65 @@ class LogoutView(View):
         messages.success(request, 'You have been logged out')
         return redirect('home')
 
-class VolunteerHome(LoginRequiredMixin, View):
+class VolunteerHome(View):
     def get(self, request):
         context = {
             "activities" : Activity.objects.all(),
         }
         return render(request, 'volunteer/home.html', context)
 
-class VolunteerAction(LoginRequiredMixin, View):
+class VolunteerAction(View):
     def get(self, request, id):
         activity = Activity.objects.get(id=id)
-        activity.volunteer = User.objects.get(username=request.user.username)
+        if request.user.is_authenticated:
+            activity.volunteer = request.user.username
+            timeLine = TimeLine()
+            timeLine.user = request.user.username
+            timeLine.type = 'Volunteer'
+            timeLine.description = 'Volunteered at %s for a %s %s in the condition of %s' %(activity.location, activity.breed, activity.pet, activity.condition)
+            timeLine.save()
+        else:
+            activity.volunteer = 'Anonymous User'
         activity.actionStamp = timezone.now()
         activity.save()
         return redirect('volunteer-home')
 
-class NewActivity(LoginRequiredMixin, View):
+class NewActivity(View):
     def post(self, request):
         activity = Activity()
-        activity.reporter = User.objects.get(username=request.user.username)
+        activity.reporter = request.user.username
         activity.pet = request.POST.get('pet')
         activity.breed = request.POST.get('breed')
         activity.condition = request.POST.get('condition')
         activity.location = request.POST.get('location')
         activity.save()
+        timeLine = TimeLine()
+        timeLine.user = request.user.username
+        timeLine.type = 'Volunteer'
+        timeLine.description = 'Reached out for help at %s for a %s %s in the condition of %s' %(request.POST.get('location'), request.POST.get('breed'), request.POST.get('pet'), request.POST.get('condition'))
+        timeLine.save()
         return redirect('volunteer-home')
+
+class AdoptView(View):
+    def get(self, request):
+        context = {
+            "pets" : PetProfile.objects.filter(adopted=False)
+        }
+        return render(request, 'adopt/home.html', context)
+
+class AdoptPetView(View):
+    def get(self, request, id):
+        pet = PetProfile.objects.get(id=id)
+        pet.adopted = True
+        pet.save()
+        timeLine = TimeLine()
+        timeLine.user = request.user.username
+        timeLine.type = 'Volunteer'
+        timeLine.description = 'Adopted %s, a %s %s' %(pet.name, pet.sex, pet.breed)
+        timeLine.save()
+        messages.success(request, 'You have successfully adopted %s' %(pet.name))
+        return redirect('adoption-page')
+
+class DonatePaymentPageView(View):
+    def get(self, request):
+        return render(request, 'donate/home.html')

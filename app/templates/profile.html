@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5 p-3">
+    <div class="row m-0">
+        <div class="col col-md-3 border-right p-3">
+            <div class="px-5">
+                <img src="https://image.flaticon.com/icons/png/512/147/147144.png" width="100%">
+            </div>
+            <div class="text-center p-2">
+                <h3>{{request.user.username}} <small><a href="profile/edit"
+                            class="bi bi-pencil-square text-muted"></a></small></h3>
+                <hr>
+                <div class="text-muted row justify-content-center m-0 p-0">
+                    {% if profile.isDonor %}
+                    <div class="col">
+                        <i class="bi bi-droplet-fill text-success"></i>
+                        <div class="x-small">DONOR</div>
+                    </div>
+                    {% endif %}
+                    {% if profile.isAdopter %}
+                    <div class="col">
+                        <i class="bi bi-heart-fill text-danger"></i>
+                        <div class="x-small">ADOPTER</div>
+                    </div>
+                    {% endif %}
+                    {% if profile.isVolunteer %}
+                    <div class="col">
+                        <i class="bi bi-award-fill text-warning"></i>
+                        <div class="x-small">VOLUNTEER</div>
+                    </div>
+                    {% endif %}
+                </div>
+                <hr>
+                <div class="row m-0 text-left">
+                    <div class="col-3 p-0">
+                        <small>EMAIL</small>
+                    </div>
+                    <div class="col-1 p-0">
+                        <small> - </small>
+                    </div>
+                    <div class="col-8 p-0">
+                        <small>{{request.user.email}}</small>
+                    </div>
+                </div>
+                <div class="row m-0 text-left">
+                    <div class="col-3 p-0">
+                        <small>DOB</small>
+                    </div>
+                    <div class="col-1 p-0">
+                        <small> - </small>
+                    </div>
+                    <div class="col-8 p-0">
+                        <small>{{profile.dateofBirth}}</small>
+                    </div>
+                </div>
+                <div class="row m-0 text-left">
+                    <div class="col-3 p-0">
+                        <small>ADDRESS</small>
+                    </div>
+                    <div class="col-1 p-0">
+                        <small> - </small>
+                    </div>
+                    <div class="col-8 p-0">
+                        <small>{{profile.address}}</small>
+                    </div>
+                </div>
+                <div class="row m-0 text-left">
+                    <div class="col-3 p-0">
+                        <small>CITY</small>
+                    </div>
+                    <div class="col-1 p-0">
+                        <small> - </small>
+                    </div>
+                    <div class="col-8 p-0">
+                        <small>{{profile.city}}</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="row m-0 text-left">
+                    <div class="col-3 p-0">
+                        <small>Volunteer Since</small>
+                    </div>
+                    <div class="col-1 p-0">
+                        <small> - </small>
+                    </div>
+                    <div class="col-8 p-0">
+                        <small>{{request.user.date_joined}}</small>
+                    </div>
+                </div>
+                <div class="row m-0 text-left">
+                    <div class="col-3 p-0">
+                        <small>Donated Amount</small>
+                    </div>
+                    <div class="col-1 p-0">
+                        <small> - </small>
+                    </div>
+                    <div class="col-8 p-0">
+                        <small>₹ {{profile.donatedAmount}}</small>
+                    </div>
+                </div>
+                <div class="row m-0 text-left">
+                    <div class="col-3 p-0">
+                        <small>Donor Since</small>
+                    </div>
+                    <div class="col-1 p-0">
+                        <small> - </small>
+                    </div>
+                    <div class="col-8 p-0">
+                        <small>{{profile.donorSince}}</small>
+                    </div>
+                </div>
+                <br>
+                <div class="btn btn-warning col">Donate</div>
+            </div>
+        </div>
+        <div class="col col-md-9">
+            <ul class="sessions">
+                <h5>Timeline</h5>
+                <hr>
+                {% for activity in timeLine %}
+                <div class="bullets">
+                    <div class="time">{{activity.timeStamp}}</div>
+                    <small>{{activity.description}}</small>
+                </div>                  
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

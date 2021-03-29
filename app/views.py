@@ -89,7 +89,7 @@ class AdoptPetView(View):
         pet.save()
         timeLine = TimeLine()
         timeLine.user = request.user.username
-        timeLine.type = 'Volunteer'
+        timeLine.type = 'Adopte'
         timeLine.description = 'Adopted %s, a %s %s' %(pet.name, pet.sex, pet.breed)
         timeLine.save()
         messages.success(request, 'You have successfully adopted %s' %(pet.name))
@@ -98,3 +98,18 @@ class AdoptPetView(View):
 class DonatePaymentPageView(View):
     def get(self, request):
         return render(request, 'donate/home.html')
+    
+    def post(self, request):
+        if request.POST.get('card-num') == '1234567890123456':
+            profile = Profile.objects.get(user__username=request.user.username)
+            profile.donatedAmount += float(request.POST.get('amount'))
+            profile.save()
+            timeLine = TimeLine()
+            timeLine.user = request.user.username
+            timeLine.type = 'Donate'
+            timeLine.description = 'Donated ₹ %s' %(float(request.POST.get('amount')))
+            timeLine.save()
+            messages.success(request, 'Donation successful')
+        else:
+            messages.error(request, 'Transaction Declined')
+        return redirect('profile')

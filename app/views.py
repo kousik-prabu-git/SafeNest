@@ -7,7 +7,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class HomeView(View):
     def get(self, request):
-        return render(request, 'home.html')
+        context = {
+            "volunteers" : len(Profile.objects.filter(isVolunteer=True)),
+            "donors" : len(Profile.objects.filter(isDonor=True)),
+            "adoptions" : len(PetProfile.objects.filter(adopted=True)),
+        }
+        return render(request, 'home.html', context)
 
 class ProfileView(LoginRequiredMixin, View):
     def get(self, request):

@@ -29,8 +29,13 @@
                 </div>
                 <br>
                 <div class="text-right">
+                    {% if request.user.is_authenticated %}
                     <button type="button" class="btn btn-warning" data-toggle="modal"
                         data-target="#adoptCardModal-{{forloop.counter}}">Adopt</button>
+                      {% else %}
+                      <button type="button" class="btn btn-warning" disabled>Adopt</button> <br>
+                      <small class="text-muted">Login to adopted</small>
+                    {% endif %}
                 </div>
             </div>
         </div>

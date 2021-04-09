@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+</style>
 <div class="auto-center hero-banner">
     <div class="mx-2 ml-md-5 text-dark bg-warning p-5 rounded">
         <div class="display-4 text-danger ml-md-1 font-medium">BECAUSE,</div>
@@ -10,14 +12,53 @@
 </div>
 
 <div class="auto-center text-center bg-secondary justify-content-center">
-    <div class="mx-2 mr-md-5 text-white  p-5 rounded">
-        <div class="display-3 text-dark" style="font-size: 60px;">EVERY DOG,</div> <br>
-        <div class="display-4" style="font-size: 40px;">DESERVES TO BE <span class="text-danger">LOVED ♡</span></div>
+    <div class="mx-2 mr-md-8 text-white p-5 rounded">
+        <div class="row text-center">
+            <div class="col">
+                <h3 class="display-4">We at Safe Nest!</h3>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row text-dark">
+            <div class="col col-md-4 p-4">
+                <div class="bg-warning p-5">
+                    <h1 class="display-4 p-3 counter">171</h1>
+                    <i class="bi bi-droplet-fill text-success"></i> <br>
+                    <small>Volunteers</small>
+                </div>
+            </div>
+            <div class="col col-md-4 p-4">
+                <div class="bg-warning p-5">
+                    <h1 class="display-4 p-3 counter">293</h1>
+                    <i class="bi bi-heart-fill text-danger"></i> <br>
+                    <small>Donors</small>
+                </div>
+            </div>
+            <div class="col col-md-4 p-4">
+                <div class="bg-warning p-5">
+                    <h1 class="display-4 p-3 counter">89</h1>
+                    <i class="bi bi-award-fill text-primary"></i> <br>
+                    <small>Adoptions</small>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-  
+
 {% endblock content %}
 {% block scripts %}
-  <script>
-  </script>
+<script>
+    $('.counter').each(function () {
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 1000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+</script>
 {% endblock scripts %}

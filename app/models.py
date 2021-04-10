@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import *
 import uuid
 
-
 class PetProfile(models.Model):
     name = models.CharField(max_length=255)
     age = models.IntegerField(default=0)

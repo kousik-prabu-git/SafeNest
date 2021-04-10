@@ -108,7 +108,7 @@ LOGOUT_URL = 'home'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'ASIA/KOLKATA'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

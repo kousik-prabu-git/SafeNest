@@ -58,10 +58,8 @@ class VolunteerAction(View):
             timeLine.type = 'Volunteer'
             timeLine.description = 'Volunteered at %s for a %s %s in the condition of %s' %(activity.location, activity.breed, activity.pet, activity.condition)
             timeLine.save()
-        else:
-            activity.volunteer = 'Anonymous User'
-        activity.actionStamp = timezone.now()
-        activity.save()
+            activity.actionStamp = timezone.now()
+            activity.save()
         return redirect('volunteer-home')
 
 class NewActivity(View):
@@ -105,16 +103,13 @@ class DonatePaymentPageView(View):
         return render(request, 'donate/home.html')
     
     def post(self, request):
-        if request.POST.get('card-num') == '1234567890123456':
-            profile = Profile.objects.get(user__username=request.user.username)
-            profile.donatedAmount += float(request.POST.get('amount'))
-            profile.save()
-            timeLine = TimeLine()
-            timeLine.user = request.user.username
-            timeLine.type = 'Donate'
-            timeLine.description = 'Donated ₹ %s' %(float(request.POST.get('amount')))
-            timeLine.save()
-            messages.success(request, 'Donation successful')
-        else:
-            messages.error(request, 'Transaction Declined')
+        profile = Profile.objects.get(user__username=request.user.username)
+        profile.donatedAmount += float(request.POST.get('amount'))
+        profile.save()
+        timeLine = TimeLine()
+        timeLine.user = request.user.username
+        timeLine.type = 'Donate'
+        timeLine.description = 'Donated ₹ %s' %(float(request.POST.get('amount')))
+        timeLine.save()
+        messages.success(request, 'Donation successful')
         return redirect('profile')

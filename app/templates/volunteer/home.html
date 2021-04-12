@@ -9,7 +9,7 @@
           {% for activity in activities %}
             <div class="card mb-3">
               <div class="card-header">
-                <b>Activity - #{{forloop.counter}}</b>
+                <b>Report - #{{forloop.counter}}</b>
               </div>
               <small class="card-body">
                 Reported by  - {{activity.reporter}} <br>
@@ -24,14 +24,14 @@
                   Closed
                   {% else %}
                   {% if not activity.volunteer %}
+                  {% if request.user.is_authenticated %}
                   <a href="/volunteer/self/{{activity.id}}" class="btn btn-warning">Volunteer</a>
+                  {% else %}                         
+                  <small class="x-small">Login Required to Volunteer</small>
+                  {% endif %}
                   {% else %}
                   <small>This activity is being monitored by 
-                    {% if activity.volunteer == 'Anonymous User' %}                    
-                    Anonymous User
-                    {% else %}
-                    <a href="">{{activity.volunteer}}</a>            
-                    {% endif %} from {{activity.actionStamp|date:"h.i A, dS M, Y"}} </small>
+                    <a href="">{{activity.volunteer}}</a> from {{activity.actionStamp|date:"h.i A, dS M, Y"}} </small>
                   {% endif %}
                 {% endif %}
               </div>
@@ -41,7 +41,7 @@
         <div class="col-4">
           <br>
           <div>
-            <h4>New Activity</h4>
+            <h4>New Report</h4>
             <hr>
             <form action="/volunteer/activity/new" method="POST" class="bg-warning p-3 p-md-4">
               {% csrf_token %}

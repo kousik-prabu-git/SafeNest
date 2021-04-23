@@ -18,6 +18,10 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     .auto-center {
       min-height: 100%;
       min-height: 100vh;
@@ -246,6 +250,12 @@
             <a class="nav-link" href="/volunteer">Volunteer</a>
           </li>
           <li class="nav-item mx-1 active">
+            <a class="nav-link" href="#aboutus">About Us</a>
+          </li>
+          <li class="nav-item mx-1 active">
+            <a class="nav-link" href="#contactus">Contact Us</a>
+          </li>
+          <li class="nav-item mx-1 active">
             <a class="nav-link btn btn-dark text-light px-3" href="/adopt">Adopt ;)</a>
           </li>
           {% if request.user.is_authenticated %}
@@ -270,8 +280,33 @@
 
   {% endblock content %}
 
-  <div class="bg-warning p-5 text-center">
-    &copy; Safe Nest Inc., {% now "Y" %}
+  <div class="bg-secondary p-5 text-center" id="contactus">
+    <div class="row m-0">
+      <div class="col col-md-5 text-warning">
+        <h4 class="text-warning">Contact : +91 98 76 543 210</h4>
+        <small>or <strong>Email : </strong>safenest@mail.com</small>
+        <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum nihil corporis magni distinctio
+          reiciendis quas quo dolor neque quisquam dolore maxime laborum cumque itaque veniam vel nam, dolorum
+          voluptatem numquam.</p>
+        <h6>&copy; Safe Nest Inc., {% now "Y" %}</h6>
+      </div>
+      <div class="col col-md-4">
+        <h6 class="text-warning">Usefull Links</h6>
+        <small><a href="/home" class="text-warning">Home</a></small> <br>
+        <small><a href="/volunteer" class="text-warning">Volunteer</a></small> <br>
+        <small><a href="#aboutus" class="text-warning">About Us</a></small> <br>
+        <small><a href="#contactus" class="text-warning">Contact Us</a></small> <br>
+      </div>
+      <div class="col col-md-3">
+        <h5 class="text-warning">Find us at!</h5>
+        <div class="mapouter">
+          <div class="gmap_canvas"><iframe width="100%" id="gmap_canvas"
+              src="https://maps.google.com/maps?q=chennai&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+              scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://putlocker-is.org"></a><br>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   {% block scripts %}

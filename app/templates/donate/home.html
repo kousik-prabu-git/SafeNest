@@ -101,25 +101,25 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount"
-                                    placeholder="Amount" size="17">
+                                    placeholder="Amount" size="17" required>
                             </div>
                             <div class="form-group mb-0">
-                                <p class="text-warning mb-0">Card Number</p> <input type="text" name="card-num"
+                                <p class="text-warning mb-0">Card Number</p> <input type="text" name="card-num" required
                                     placeholder="1234 5678 9012 3456" size="17" id="cno" minlength="16" maxlength="16">
                                 <img src="https://img.icons8.com/color/48/000000/visa.png" width="64px" height="60px" />
                             </div>
                             <div class="form-group">
-                                <p class="text-warning mb-0">Cardholder's Name</p> <input type="text" name="name"
+                                <p class="text-warning mb-0">Cardholder's Name</p> <input type="text" name="name" required
                                     placeholder="Name" size="17">
                             </div>
                             <div class="form-group pt-2">
                                 <div class="row d-flex">
                                     <div class="col-sm-4">
-                                        <p class="text-warning mb-0">Expiration</p> <input type="text" name="exp"
+                                        <p class="text-warning mb-0">Expiration</p> <input type="text" name="exp" required
                                             placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7">
                                     </div>
                                     <div class="col-sm-3">
-                                        <p class="text-warning mb-0">Cvv</p> <input type="password" name="cvv"
+                                        <p class="text-warning mb-0">Cvv</p> <input type="password" name="cvv" required
                                             placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3">
                                     </div>
                                     <div class="col-sm-5 pt-0"> <button type="submit"
@@ -132,16 +132,16 @@
                         <form class="card-details" action="/donate" method="POST">
                             {% csrf_token %}
                             <div class="form-group">
-                                <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount"
+                                <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount" required
                                     placeholder="Amount" size="17">
                             </div>
                             <div class="form-group mb-0">
-                                <p class="text-warning mb-0">Bank Name</p> <input type="text" name="bank-name"
+                                <p class="text-warning mb-0">Bank Name</p> <input type="text" name="bank-name" required
                                     placeholder="Name of the bank" size="17" id="bankname" minlength="16" maxlength="16"> <img
                                     src="https://img.icons8.com/color/48/000000/visa.png" width="64px" height="60px" />
                             </div>
                             <div class="form-group">
-                                <p class="text-warning mb-0">NEFT/RTGS Txn ID</p> <input type="text" name="txid"
+                                <p class="text-warning mb-0">NEFT/RTGS Txn ID</p> <input type="text" name="txid" required
                                     placeholder="Txn ID" size="17">
                             </div>
                             <div class="form-group pt-2">
@@ -154,11 +154,11 @@
                     <form class="card-details" action="/donate" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
-                            <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount"
+                            <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount" required
                                 placeholder="Amount" size="17">
                         </div>
                         <div class="form-group mb-0">
-                            <p class="text-warning mb-0">VPA</p> <input type="text" name="card-num"
+                            <p class="text-warning mb-0">VPA</p> <input type="text" name="card-num" required
                                 placeholder="<username>@oksbi" size="17" id="vpa" minlength="16" maxlength="16">
                             <img src="https://img.icons8.com/color/48/000000/visa.png" width="64px" height="60px" />
                         </div>

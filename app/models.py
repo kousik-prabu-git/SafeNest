@@ -24,6 +24,7 @@ class Activity(models.Model):
     location = models.TextField()
     volunteer = models.CharField(max_length=255, blank=True)
     condition = models.TextField()
+    images = models.TextField()
     status = models.BooleanField(default=False)
     reporter = models.CharField(max_length=255)
     timeStamp = models.DateTimeField(auto_now_add=True)
@@ -44,13 +45,17 @@ class Profile(models.Model):
     adoptedPets = models.ManyToManyField(PetProfile, blank=True)
     donatedAmount = models.FloatField(default=0)
     activities = models.ManyToManyField(Activity, blank=True)
-    dateofBirth = models.DateField()
+    dateofBirth = models.DateField() #age
     phone = models.CharField(max_length=12)
     address = models.TextField(null=True, blank=True)
     city = models.CharField(max_length=200)
+    license = models.CharField(max_length=30)
+    vehicleType = models.CharField(max_length=30)
+    aadhar = models.CharField(max_length=16)
+    panCard = models.CharField(max_length=20)
     donorSince = models.DateField(null=True, blank=True)
     donatedAmount = models.FloatField(default=0)
-
+    profilePicture = models.CharField(max_length=2000)
 
     def __str__(self):
         return self.user.username

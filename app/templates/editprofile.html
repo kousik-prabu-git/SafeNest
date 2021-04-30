@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="mt-5 p-5">
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+
+        <h3>Edit Profile</h3>
+        <hr>
+        <div class="row m-0 mb-3">
+            <div class="col col-md-2">
+                <img src="{{profile.profilePicture}}" id="profilePicture" width="100%" class="round rounded-circle">
+            </div>
+            <div class="col col-m-10">
+                <label>Profile Name</label>
+                <input type="text" class="form-control mb-3" id="profileName" value="{{profile.user.first_name}}" name="profileName">
+                <label>Profile Picture link</label>
+                <input type="text" class="form-control" id="profilePictureInput" value="{{profile.profilePicture}}" name="profilePicture">
+            </div>
+        </div>
+        <br>
+        <h4>Personal Information</h4>
+        <hr>
+        <label>Date of Birth</label>
+        <input type="date" class="form-control mb-3" id="dateOfBirth" value="{{profile.dateofBirth|date:'Y-m-d'}}" name="dateofBirth">
+        <label>Phone</label>
+        <input type="text" class="form-control mb-3" id="phone" value="{{profile.phone}}" name="phone">
+        <label>Address</label>
+        <textarea class="form-control mb-3" id="address" name="address">{{profile.address}}</textarea>
+        <label>City</label>
+        <input type="text" class="form-control mb-3" id="city" value="{{profile.city}}" name="city">
+        <button class="btn btn-warning">Update</button>
+    
+        </form>
+    </div>
+</div>
+{% endblock content %}
+{% block scripts %}
+<script>
+    $("#profilePictureInput").keyup(function () {
+        $("#profilePicture").attr('src', $("#profilePictureInput").val())
+    })
+</script>
+{% endblock scripts %}

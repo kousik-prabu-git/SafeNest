@@ -20,6 +20,12 @@
                 Reported at - {{activity.timeStamp}}
               </small>
               <div class="card-footer text-right">
+                {% if activity.images %}
+                <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#galleryView{{forloop.counter}}">
+                  View Images
+                </button>
+                  
+                {% endif %}
                 {% if activity.status %}
                   Closed
                   {% else %}
@@ -34,6 +40,21 @@
                     <a href="">{{activity.volunteer}}</a> from {{activity.actionStamp|date:"h.i A, dS M, Y"}} </small>
                   {% endif %}
                 {% endif %}
+              </div>
+            </div>
+            <div class="modal fade" id="galleryView{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="galleryView{{forloop.counter}}" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      {% for image in images %}
+                      <div class="carousel-item active">
+                        <img class="d-block w-100" src="{{image}}" alt="First slide">
+                      </div>                    
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           {% endfor %}

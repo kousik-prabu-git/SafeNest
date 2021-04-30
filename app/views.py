@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
+import datetime
+
 
 class HomeView(View):
     def get(self, request):
@@ -21,6 +23,27 @@ class ProfileView(LoginRequiredMixin, View):
             "timeLine" : TimeLine.objects.filter(user=request.user.username).order_by('-timeStamp')
         }
         return render(request, 'profile.html', context)
+
+class ProfileEditView(LoginRequiredMixin, View):
+    def get(self, request):
+        context = {
+            "profile" : Profile.objects.get(user__username=request.user.username)
+        }
+        return render(request, 'editprofile.html', context)
+
+    def post(self, request):
+        profile = Profile.objects.get(user__username=request.user.username)
+        user = profile.user
+        user.first_name = request.POST.get('profileName')
+        user.save()
+        profile.dateofBirth = datetime.datetime.strptime(request.POST.get('dateofBirth'), '%Y-%m-%d')
+        profile.phone = request.POST.get('phone')
+        profile.address = request.POST.get('address')
+        profile.city = request.POST.get('city')
+        profile.profilePicture = request.POST.get('profilePicture')
+        profile.save()
+        messages.success(request, 'Profile has been updated!')
+        return redirect('profile')
 
 class LoginView(View):
     def post(self, request):
@@ -95,6 +118,9 @@ class AdoptPetView(View):
         timeLine.type = 'Adopte'
         timeLine.description = 'Adopted %s, a %s %s' %(pet.name, pet.sex, pet.breed)
         timeLine.save()
+        profile = Profile.objects.get(user__username=timeLine.user)
+        profile.isAdopter = True
+        profile.save()
         messages.success(request, 'You have successfully adopted %s' %(pet.name))
         return redirect('adoption-page')
 
@@ -105,6 +131,7 @@ class DonatePaymentPageView(View):
     def post(self, request):
         profile = Profile.objects.get(user__username=request.user.username)
         profile.donatedAmount += float(request.POST.get('amount'))
+        profile.isDonor = True
         profile.save()
         timeLine = TimeLine()
         timeLine.user = request.user.username

@@ -219,7 +219,23 @@
     {{message}}
   </div>
   {% endfor %}
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  <div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="signUp"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content p-md-5 p-3">
+        <h2 class="modal-title mx-auto" id="exampleModalLongTitle">SIGNUP</h2>
+        <br>
+        <form action="/signup" method="POST">
+          {% csrf_token %}
+          <input type="text" class="form-control mb-3" name="username" placeholder="Username">
+          <input type="email" class="form-control mb-3" name="email" placeholder="Email">
+          <small>You will be receiving an email for verfication!</small>
+          <button class="btn btn-dark d-block ml-auto mr-0">SIGNUP</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="signIn"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content p-md-5 p-3">
@@ -229,6 +245,7 @@
           {% csrf_token %}
           <input type="text" class="form-control mb-3" name="username" placeholder="Username">
           <input type="password" class="form-control mb-3" name="password" placeholder="Password">
+          <small><a href="/forgetpassword">Forget Password?</a></small>
           <button class="btn btn-dark d-block ml-auto mr-0">LOGIN</button>
         </form>
       </div>
@@ -267,8 +284,12 @@
           </li>
           {% else %}
           <li class="nav-item mx-1 active">
-            <a class="nav-link" href="javascript: void(0);" data-toggle="modal" data-target="#exampleModalCenter"><i
+          <li class="nav-item mx-1 active">
+            <a class="nav-link" href="javascript: void(0);" data-toggle="modal" data-target="#signIn"><i
                 class="bi bi-box-arrow-in-right"></i></a>
+          </li>
+            <a class="nav-link" href="javascript: void(0);" data-toggle="modal" data-target="#signUp"><i
+                class="bi bi-person-plus"></i></a>
           </li>
           {% endif %}
         </ul>

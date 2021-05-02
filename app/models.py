@@ -45,7 +45,7 @@ class Profile(models.Model):
     adoptedPets = models.ManyToManyField(PetProfile, blank=True)
     donatedAmount = models.FloatField(default=0)
     activities = models.ManyToManyField(Activity, blank=True)
-    dateofBirth = models.DateField() #age
+    dateofBirth = models.DateField(null=True, blank=True) #age
     phone = models.CharField(max_length=12)
     address = models.TextField(null=True, blank=True)
     city = models.CharField(max_length=200)
@@ -64,3 +64,11 @@ class TimeLine(models.Model):
     user = models.CharField(max_length=255)
     description = models.TextField()
     timeStamp = models.DateTimeField(auto_now_add=True)
+
+
+class PasswordReset(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    key = models.CharField(max_length=16)
+
+    def __str__(self):
+        return self.key

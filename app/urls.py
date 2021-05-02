@@ -13,5 +13,8 @@ urlpatterns = [
      path('donate', views.DonatePaymentPageView.as_view(), name='donate-view'),
      # Authentication
      path('login', views.LoginView.as_view(), name='login'),
-     path('logout', views.LogoutView.as_view(), name='logout')
+     path('logout', views.LogoutView.as_view(), name='logout'),
+     path('signup', views.SignUpView.as_view(), name='signup'),
+     path('password/<key>', views.PasswordSetPageView.as_view(), name='password'),
+     path('forgetpassword', views.PasswordResetPageView.as_view(), name='forgotpassword')
 ]

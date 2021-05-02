@@ -5,7 +5,8 @@ from django.contrib import messages
 from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 import datetime
-
+from django.core.mail import send_mail
+import random
 
 class HomeView(View):
     def get(self, request):
@@ -66,6 +67,80 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         messages.success(request, 'You have been logged out')
+        return redirect('home')
+
+class SignUpView(View):
+    def post(self, request):
+        user = User.objects.filter(username=request.POST.get('username'))
+        if len(user) != 0:
+            messages.success(request, 'Username already exists. Please login if it is you!')
+        else:
+            user = User()
+            user.username = request.POST.get('username')
+            user.email = request.POST.get('email')
+            user.save()
+            profile = Profile()
+            profile.user = user
+            profile.save()
+            password = PasswordReset()
+            password.user = user
+            password.key = random.randint(10000000, 99999999)
+            password.save()
+            send_mail(
+                'SIGN UP | SUCCESSFULL',
+                'Dear %s,\nThis email is to confirm that you have successfully created an account on SAFENEST. We are happy to have you as a part of our community to serve all the lives that needs to be loved. But before that, please set your password so that you can access all the updates in our website.\n\nhttp://localhost:8000/password/%s\n\nThank you for being a part of this community.\n\nRegards,\nSafeNest' %(user.username, password.key),
+                'safenestkmm2021@gmail.com',
+                [user.email],
+                fail_silently=False
+            )
+            messages.success(request, 'Your account has been created. Please check mail for details!')
+        return redirect('home')
+
+class PasswordSetPageView(View):
+    def get(self, request, key):
+        try:
+            token = PasswordReset.objects.get(key=key)
+            return render(request, 'password.html')
+        except:
+            messages.success(request, 'Invalid link!')
+            return redirect('home')
+    def post(self, request, key):
+        if len(request.POST.get('password')) > 7:
+            if request.POST.get('password') == request.POST.get('password2'):
+                token = PasswordReset.objects.get(key=key)
+                user = token.user
+                user.set_password(request.POST.get('password'))
+                user.save()
+                # token.delete()
+                messages.success(request, 'Password set successfully')
+                return redirect('home')
+            else:
+                err = 1
+        else:
+            err = 2
+        return render(request, 'password.html', context={"err":err})
+
+class PasswordResetPageView(View):
+    def get(self, request):
+        return render(request, 'forgetpassword.html')
+    
+    def post(self, request):
+        try:
+            user = User.objects.get(username=request.POST.get('username'))
+            password = PasswordReset()
+            password.user = user
+            password.key = random.randint(10000000, 99999999)
+            password.save()
+            send_mail(
+                'SIGN UP | SUCCESSFULL',
+                'Dear %s,\nThis email is to confirm that you have successfully created an account on SAFENEST. We are happy to have you as a part of our community to serve all the lives that needs to be loved. But before that, please set your password so that you can access all the updates in our website.\n\nhttp://localhost:8000/password/%s\n\nThank you for being a part of this community.\n\nRegards,\nSafeNest' %(user.username, password.key),
+                'safenestkmm2021@gmail.com',
+                [user.email],
+                fail_silently=False
+            )
+            messages.success(request, 'Password set link has been sent to the email ID')
+        except:
+            messages.success(request, 'Invalid email ID')
         return redirect('home')
 
 class VolunteerHome(View):

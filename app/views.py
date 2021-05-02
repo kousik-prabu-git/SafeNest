@@ -156,7 +156,7 @@ class VolunteerAction(View):
         if request.user.is_authenticated:
             user = Profile.objects.get(user__username=request.user.username)
             print(user.license, user.aadhar)
-            if user.license != '' and user.aadhar != '':
+            if user.license != '' and user.aadhar != '' and user.vehicleType != '':
                 if not user.isVolunteer:
                     user.isVolunteer = True
                     user.save()
@@ -218,24 +218,36 @@ class AdoptPetView(View):
 
 class DonatePaymentPageView(View):
     def get(self, request):
-        return render(request, 'donate/home.html')
+        profile = Profile.objects.get(user__username=request.user.username)
+        if profile.aadhar == '' and profile.panCard == '':
+            messages.success(request, 'Please your profile with Aadhar and Pan Card Details')
+            return redirect('profile')
+        else:
+            return render(request, 'donate/home.html')
     
     def post(self, request):
         if request.POST.get('otp') == '123456':
             profile = Profile.objects.get(user__username=request.user.username)
-            if profile.aadhar != '' and profile.panCard != '':
-                profile.donatedAmount += float(request.POST.get('amount'))
-                if not profile.isDonor:
-                    profile.isDonor = True
-                profile.save()
-                timeLine = TimeLine()
-                timeLine.user = request.user.username
-                timeLine.type = 'Donate'
-                timeLine.description = 'Donated ₹ %s' %(float(request.POST.get('amount')))
-                timeLine.save()
-                messages.success(request, 'Donation successful')
-            else:
-                messages.success(request, 'Please your profile with Aadhar and Pan Card Details')
+            profile.donatedAmount += float(request.POST.get('amount'))
+            if not profile.isDonor:
+                profile.isDonor = True
+            profile.save()
+            timeLine = TimeLine()
+            timeLine.user = request.user.username
+            timeLine.type = 'Donate'
+            timeLine.description = 'Donated ₹ %s' %(float(request.POST.get('amount')))
+            timeLine.save()
+            messages.success(request, 'Donation successful')
         else:
             messages.success(request, 'Payment Failed')
         return redirect('profile')
+
+class ComplaintRegister(View):
+    def post(self, request):
+        complain = Complaints()
+        complain.name = request.POST.get('name')
+        complain.email = request.POST.get('email')
+        complain.complaint = request.POST.get('complaint')
+        complain.save()
+        messages.success(request, 'Your complaint has been registered!')
+        return redirect('volunteer-home')

@@ -93,7 +93,8 @@
             <div class="col-sm-12">
                 <div class="card mx-auto">
                     <p class="heading mb-1">SAFENEST PAYMENT</p>
-                    <small class="text-muted mt-1"><a href="javascript: void(0);" id="toggle-card">Card</a> / <a href="javascript: void(0);" id="toggle-netbanking">Net Banking</a> / <a
+                    <small class="text-muted mt-1"><a href="javascript: void(0);" id="toggle-card">Card</a> / <a
+                            href="javascript: void(0);" id="toggle-netbanking">Net Banking</a> / <a
                             href="javascript: void(0);" id="toggle-upi">UPI</a></small>
                     <br>
                     <div id="card" class="">
@@ -105,77 +106,112 @@
                                         placeholder="Amount" size="17" required>
                                 </div>
                                 <div class="form-group mb-0">
-                                    <p class="text-warning mb-0">Card Number</p> <input type="text" name="card-num" required
-                                        placeholder="1234 5678 9012 3456" size="17" id="cno" minlength="16" maxlength="16">
-                                    <img src="https://img.icons8.com/color/48/000000/visa.png" width="64px" height="60px" />
+                                    <p class="text-warning mb-0">Card Number</p> <input type="text" name="card-num"
+                                        required placeholder="1234 5678 9012 3456" size="17" id="cno" minlength="16"
+                                        maxlength="16">
+                                    <img src="https://img.icons8.com/color/48/000000/visa.png" width="64px"
+                                        height="60px" />
                                 </div>
                                 <div class="form-group">
-                                    <p class="text-warning mb-0">Cardholder's Name</p> <input type="text" name="name" required
-                                        placeholder="Name" size="17">
+                                    <p class="text-warning mb-0">Cardholder's Name</p> <input type="text" name="name"
+                                        required placeholder="Name" size="17">
                                 </div>
                                 <div class="form-group pt-2">
                                     <div class="row d-flex">
                                         <div class="col-sm-3">
-                                            <p class="text-warning mb-0">Expiration</p> <input type="text" name="exp" required
-                                                placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7">
+                                            <p class="text-warning mb-0">Expiration</p> <input type="text" name="exp"
+                                                required placeholder="MM/YYYY" size="7" id="exp" minlength="7"
+                                                maxlength="7">
                                         </div>
                                         <div class="col-sm-3">
-                                            <p class="text-warning mb-0">Cvv</p> <input type="password" name="cvv" required
-                                                placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3">
+                                            <p class="text-warning mb-0">Cvv</p> <input type="password" name="cvv"
+                                                required placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3"
+                                                maxlength="3">
                                         </div>
-                                        <div class="col-sm-5 pt-0"> <div id="cardSubmit"
-                                                class="btn btn-primary">PAY</div> </div>
+                                        <div class="col-sm-5 pt-0">
+                                            <div id="cardSubmit" class="btn btn-primary">PAY</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="d-none" id="cardSubForm2">
                                 <h6>Enter OTP</h6>
-                                <input type="password" name="otp" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                                <input type="password" name="otp"
+                                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
                                 <small>Please enter the 6 digit otp!</small>
                                 <div class="form-group pt-2">
-                                    <div class="col-sm-5 pt-0"> <button type="submit" class="btn btn-primary">PAY</button>
+                                    <div class="col-sm-5 pt-0"> <button type="submit"
+                                            class="btn btn-primary">PAY</button>
                                     </div>
-                                
-                            </div>
-                        </form>
-                    </div>
-                    <div id="netbanking" class="d-none">
-                        <form class="card-details" action="/donate" method="POST">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount" required
-                                    placeholder="Amount" size="17">
-                            </div>
-                            <div class="form-group mb-0">
-                                <p class="text-warning mb-0">Bank Name</p> <input type="text" name="bank-name" required
-                                    placeholder="Name of the bank" size="17" id="bankname" minlength="16" maxlength="16"> <img
-                                    src="https://img.icons8.com/color/48/000000/visa.png" width="64px" height="60px" />
-                            </div>
-                            <div class="form-group">
-                                <p class="text-warning mb-0">NEFT/RTGS Txn ID</p> <input type="text" name="txid" required
-                                    placeholder="Txn ID" size="17">
-                            </div>
-                            <div class="form-group pt-2">
-                                <div class="col-sm-5 pt-0"> <button type="submit" class="btn btn-primary">PAY</button>
+
                                 </div>
                         </form>
                     </div>
                 </div>
+                <div id="netbanking" class="d-none">
+                    <form class="card-details" action="/donate" method="POST">
+                        {% csrf_token %}
+                        <div id="netSubForm">
+                            <div class="form-group">
+                                <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount"
+                                    required placeholder="Amount" size="17">
+                            </div>
+                            <div class="form-group mb-0">
+                                <p class="text-warning mb-0">Bank Name</p> <input type="text" name="bank-name" required
+                                    placeholder="Name of the bank" size="17" id="bankname" minlength="16"
+                                    maxlength="16"> <img src="https://img.icons8.com/color/48/000000/visa.png"
+                                    width="64px" height="60px" />
+                            </div>
+                            <div class="form-group">
+                                <p class="text-warning mb-0">NEFT/RTGS Txn ID</p> <input type="text" name="txid"
+                                    required placeholder="Txn ID" size="17">
+                            </div>
+                            <div class="form-group pt-2">
+                                <div class="col-sm-5 pt-0">
+                                    <div id="netSubmit" class="btn btn-primary">PAY</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="netSubForm2" class="d-none">
+                            <h6>Enter OTP</h6>
+                            <input type="password" name="otp" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                            <small>Please enter the 6 digit otp!</small>
+                            <div class="form-group pt-2">
+                                <div class="col-sm-5 pt-0">
+                                    <button type="submit" class="btn btn-primary">PAY</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div id="upi" class="d-none">
                     <form class="card-details" action="/donate" method="POST">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount" required
-                                placeholder="Amount" size="17">
+                        <div id="upiSubForm">
+                            <div class="form-group">
+                                <p class="text-warning mb-0">Donation Amount</p> <input type="text" name="amount"
+                                    required placeholder="Amount" size="17">
+                            </div>
+                            <div class="form-group mb-0">
+                                <p class="text-warning mb-0">VPA</p> <input type="text" name="card-num" required
+                                    placeholder="<username>@oksbi" size="17" id="vpa" minlength="16" maxlength="16">
+                                <img src="https://img.icons8.com/color/48/000000/visa.png" width="64px" height="60px" />
+                            </div>
+                            <div class="form-group pt-2">
+                                <div class="row d-flex">
+                                    <div class="col-sm-5 pt-0">
+                                        <div id="upiSubmit" class="btn btn-primary">PAY</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group mb-0">
-                            <p class="text-warning mb-0">VPA</p> <input type="text" name="card-num" required
-                                placeholder="<username>@oksbi" size="17" id="vpa" minlength="16" maxlength="16">
-                            <img src="https://img.icons8.com/color/48/000000/visa.png" width="64px" height="60px" />
-                        </div>
-                        <div class="form-group pt-2">
-                            <div class="row d-flex">
-                                <div class="col-sm-5 pt-0"> <button type="submit" class="btn btn-primary">PAY</button>
+                        <div class="d-none" id="upiSubForm2">
+                            <h6>Enter OTP</h6>
+                            <input type="password" name="otp" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                            <small>Please enter the 6 digit otp!</small>
+                            <div class="form-group pt-2">
+                                <div class="col-sm-5 pt-0">
+                                    <button type="submit" class="btn btn-primary">PAY</button>
                                 </div>
                             </div>
                         </div>
@@ -185,24 +221,32 @@
         </div>
     </div>
     <script>
-        $("#toggle-card").click(function(){
+        $("#toggle-card").click(function () {
             $("#card").removeClass('d-none')
             $("#netbanking").addClass('d-none')
             $("#upi").addClass('d-none')
         })
-        $("#toggle-netbanking").click(function(){
+        $("#toggle-netbanking").click(function () {
             $("#card").addClass('d-none')
             $("#netbanking").removeClass('d-none')
             $("#upi").addClass('d-none')
         })
-        $("#toggle-upi").click(function(){
+        $("#toggle-upi").click(function () {
             $("#card").addClass('d-none')
             $("#netbanking").addClass('d-none')
             $("#upi").removeClass('d-none')
         })
-        $("#cardSubmit").click(function(){
+        $("#cardSubmit").click(function () {
             $("#cardSubForm").addClass('d-none')
             $("#cardSubForm2").removeClass('d-none')
+        })
+        $("#netSubmit").click(function () {
+            $("#netSubForm").addClass('d-none')
+            $("#netSubForm2").removeClass('d-none')
+        })
+        $("#upiSubmit").click(function () {
+            $("#upiSubForm").addClass('d-none')
+            $("#upiSubForm2").removeClass('d-none')
         })
     </script>
 </body>

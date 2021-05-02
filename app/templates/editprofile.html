@@ -24,25 +24,33 @@
                 <h4>Personal Information</h4>
                 <hr>
                 <label>Date of Birth</label>
-                <input type="date" class="form-control mb-3" id="dateOfBirth" value="{{profile.dateofBirth|date:'Y-m-d'}}" name="dateofBirth">
+                <input type="date" class="form-control mb-3" id="dateOfBirth" value="{{profile.dateofBirth|date:'Y-m-d'}}" name="dateofBirth" required>
                 <label>Phone</label>
-                <input type="text" class="form-control mb-3" id="phone" value="{{profile.phone}}" name="phone">
+                <input type="text" class="form-control mb-3" id="phone" value="{{profile.phone}}" name="phone" required>
                 <label>Address</label>
-                <textarea class="form-control mb-3" id="address" name="address">{{profile.address}}</textarea>
+                <textarea class="form-control mb-3" id="address" name="address" required>{{profile.address}}</textarea>
                 <label>City</label>
-                <input type="text" class="form-control mb-3" id="city" value="{{profile.city}}" name="city">
+                <input type="text" class="form-control mb-3" id="city" value="{{profile.city}}" name="city" required>
             </div>
             <div class="col">
                 <h4>Other Information</h4>
                 <hr>
                 <label>Aadhar Number</label>
-                <input type="text" class="form-control mb-3" id="aadhar" value="{{profile.aadhar}}" name="aadhar" minlength="12" maxlength="12">
+                <input type="text" class="form-control mb-3" id="aadhar" {% if profile.aadhar %}
+                  value="{{profile.aadhar}}"
+                {% endif %} name="aadhar" minlength="12" maxlength="12">
                 <label>Pan Card</label>
-                <input type="text" class="form-control mb-3" id="panCard" value="{{profile.panCard}}" name="panCard">
+                <input type="text" class="form-control mb-3" id="panCard" {% if profile.panCard %}
+                value="{{profile.panCard}}"
+              {% endif %}  name="panCard">
                 <label>License No</label>
-                <input type="text" class="form-control mb-3" id="license" value="{{profile.license}}" name="license">
+                <input type="text" class="form-control mb-3" id="license" {% if profile.license %}
+                value="{{profile.license}}"
+              {% endif %}  name="license">
                 <label>Vehicle Type</label>
-                <input type="text" class="form-control mb-3" id="vehicleType" value="{{profile.vehicleType}}" name="vehicleType">
+                <input type="text" class="form-control mb-3" id="vehicleType" {% if profile.vehicleType %}
+                value="{{profile.vehicleType}}"
+              {% endif %}  name="vehicleType">
             </div>
         </div>
         <hr>

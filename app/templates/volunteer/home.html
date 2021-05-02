@@ -73,6 +73,24 @@
               <button type="submit" class="btn btn-dark">Submit</button>
             </form>
           </div>
+          <hr>
+          <div>
+            <h3>Register a Complaint</h3>
+            <hr>
+            <form action="/complaint/new" method="POST" class="bg-warning p-3 p-md-4">
+              {% csrf_token %}
+              <input type="text" class="form-control mb-3" name="name" placeholder="Your Name"
+              {% if request.user.username %}
+                value="{{request.user.username}}"
+              {% endif %}>
+              <input type="text" class="form-control mb-3" name="email" placeholder="Your Email"
+              {% if request.user.email %}
+                value="{{request.user.email}}"
+              {% endif %}>
+              <textarea type="text" class="form-control mb-3" name="complaint" placeholder="Your Complaint" rows="5"></textarea>
+              <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+          </div>
         </div>
     </div>
   </div>
